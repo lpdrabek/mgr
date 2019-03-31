@@ -1,13 +1,12 @@
 {% extends 'skel.html' %}
 
 {% block title %}
-Simple Weather
+Simple Weather :: city picker
 {% endblock %}
 
 {% block content %}
-<select>
-    {% for option in options %}
-    <option value="{{ option }}">{{ option }}</option>
-    {% endfor %}
-</select> 
+<form method="GET" action="/city_select">
+    <textarea id="cities" autofocus="autofocus" placeholder="Podaj nazwe miasta, lub część nazwy miasta(jedna w linii)" cols="30" name="cities"></textarea>
+    <input type="submit" value="Submit">
+</form>
 {% endblock %}
