@@ -5,17 +5,51 @@ Simple Weather :: city picker
 {% endblock %}
 
 {% block content %}
-    <form action="/" method="get">
-        <select name="city">
-            {% for city in cities %}
-                <option value="{{ city }}">{{ city }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="GO!"></input>
-    </form>
+    <div class="row">
+        <div class="column column-40 float-left">
+            <form action="/" method="get">
+                <fieldset>
+                    <label for="city-select">Pick a city:</label>
+                    <select id="city-select" name="city">
+                    {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+                    </select>
+                    <input class="button-primary" type="submit" value="Check weather">
+                </fieldset>
+            </form>
+        </div>
+    </div>
     {% if weather %}
-        {{ weather }}
+        <h2>5 Day Forecast</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Weather State</th>
+                    <th>Temp</th>
+                    <th>Wind</th>
+                    <th>Air pressure</th>
+                    <th>Humidity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for w in weather[:5] %}
+                <tr>
+                    <td><b>{{ w['applicable_date'] }}</b></td>
+                    <td>{{ w['weather_state_name'] }}</td>
+                    <td>{{ w['the_temp']|round}} &deg;C</td>
+                    <td>{{ w['wind_speed']|round }} mph {{ w['wind_direction_compass']}}</td>
+                    <td>{{ w['air_pressure']|round }} mbar</td>
+                    <td>{{ w['humidity'] }} %</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% else %}
-        We're sorry
+        <div clas="row">
+            <h2>We're sorry but something went wrong.</h2>
+        </div>
     {% endif %}
+
 {% endblock %}
