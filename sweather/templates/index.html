@@ -5,8 +5,17 @@ Simple Weather :: city picker
 {% endblock %}
 
 {% block content %}
-<form method="GET" action="/city_select">
-    <textarea id="cities" autofocus="autofocus" placeholder="Podaj nazwe miasta, lub część nazwy miasta(jedna w linii)" cols="30" name="cities"></textarea>
-    <input type="submit" value="Submit">
-</form>
+    <form action="/" method="get">
+        <select name="city">
+            {% for city in cities %}
+                <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="GO!"></input>
+    </form>
+    {% if weather %}
+        {{ weather }}
+    {% else %}
+        We're sorry
+    {% endif %}
 {% endblock %}

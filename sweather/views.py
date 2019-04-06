@@ -1,32 +1,25 @@
-from flask import render_template, request
-import json
+from os import environ
 
-from pprint import pprint
+from flask import render_template, request, abort
+import redis
 
 from sweather import app
-from sweather.metaweather import search
+from sweather.metaweather import get_weather
+from sweather.lib import populate_cache
+
+DEF_CITIES = ['Warsaw', 'London', 'Berlin']
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    r = redis.Redis(host=environ.get('REDIS_HOST', 'localhost'), port=6379)
+    populate_cache(r, DEF_CITIES)
 
+    city = request.args.get('city', 'warsaw')
+    woeid = r.hget('cities', city.lower())
+    if not woeid:
+        abort(404)
 
-@app.route('/city_select')
-def weather():
-    cities = request.args.get('cities')
-    if not cities:
-        return render_template('skel.html')
-    c_list = cities.split('\r\n')
-    all_cities = {}
-    for city in c_list:
-        a = search(city)
-        print(a[0]['title'])
-        all_cities[city] = search(city)
-    pprint(all_cities)
-    return render_template('weather.html', cities=all_cities)
+    weather = get_weather(woeid)
 
-
-@app.route('/weather')
-def index():
-    return render_template('index.html')
+    return render_template('index.html', weather=weather, cities=DEF_CITIES)
