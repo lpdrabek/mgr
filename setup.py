@@ -45,6 +45,6 @@ setup(
     setup_requires=[
         'pytest-runner'
     ],
-    tests_require=tests_requirements,
+#    tests_require=tests_requirements,
     license='GPLV2'
 )

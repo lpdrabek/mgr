@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  redis:
+    image: redis
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_APP=__init__.py
+      - REDIS_HOST=redis
+    container_name: sweather
+    volumes:
+      - ./:/usr/src/app/
+    command: flask run --host=0.0.0.0
+    ports:
+     - "5000:5000"
+    depends_on:
+       - redis
+
+  

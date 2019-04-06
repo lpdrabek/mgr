@@ -2,6 +2,7 @@
 *.DS_*
 # Packages
 *.egg
+.egg
 *.egg-info
 dist
 build
