@@ -18,8 +18,13 @@ def index():
     city = request.args.get('city', 'warsaw')
     woeid = r.hget('cities', city.lower())
     if not woeid:
+        print("Couldnt find woeid in redis")
         abort(404)
 
     weather = get_weather(woeid)
 
     return render_template('index.html', weather=weather, cities=DEF_CITIES)
+
+@app.route('/ping')
+def ping():
+    return "pong"

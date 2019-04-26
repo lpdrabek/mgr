@@ -5,7 +5,7 @@ WORKDIR /usr/src/app/
 
 RUN pip install setuptools -U
 
-RUN python setup.py develop
+RUN python setup.py install
 WORKDIR /usr/src/app/sweather
 RUN pip freeze
 

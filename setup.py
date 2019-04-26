@@ -3,7 +3,7 @@ from os import path
 
 from setuptools import find_packages, setup
 
-__version__ = '0.0.0'
+__version__ = '0.0.1'
 
 BASE_DIR = path.abspath(path.dirname(__file__))
 
@@ -46,5 +46,6 @@ setup(
         'pytest-runner'
     ],
 #    tests_require=tests_requirements,
-    license='GPLV2'
+    license='GPLV2',
+    editable=False
 )
