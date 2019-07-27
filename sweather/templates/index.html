@@ -21,7 +21,7 @@ Simple Weather :: city picker
         </div>
     </div>
     {% if weather %}
-        <h2>5 Day Forecast</h2>
+        <h2>5 Day Forecast for {{ city[0]|upper }}{{ city[1:] }}</h2>
         <table>
             <thead>
                 <tr>

@@ -23,7 +23,7 @@ def index():
 
     weather = get_weather(woeid)
 
-    return render_template('index.html', weather=weather, cities=DEF_CITIES)
+    return render_template('index.html', city=city, weather=weather, cities=DEF_CITIES)
 
 @app.route('/ping')
 def ping():
